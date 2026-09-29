@@ -16,11 +16,9 @@ The project implements CRC-16 logic using shift registers and XOR-based feedback
 
 The CRC-16 circuit uses four SN74LS194 shift registers to store and move a total of 16 bits. XOR gates provide the feedback logic used to generate the CRC result, while the SN74LS04 inverter is used in the reset circuit.
 
-The Arduino Nano provides both the 5 V power supply and the clock signal. Each clock cycle moves the data through the shift registers, so the user must time the input properly with the clock.
+The Arduino Nano provides both the 5 V power supply and the clock signal. Each clock cycle moves the data through the shift registers, so the user must time the input properly with the clock. [View the Arduino clock source](arduino/Clock.ino)
 
 LEDs connected to the outputs show the current 16-bit state of the circuit in real time.
-
-[View the Arduino clock source](arduino/Clock.ino)
 
 ### Logisim Circuit
 
