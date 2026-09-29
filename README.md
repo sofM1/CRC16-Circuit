@@ -12,13 +12,21 @@ The project implements CRC-16 logic using shift registers and XOR-based feedback
 
 ![CRC16 Schematic](images/CRC16_Schematic.png)
 
+## Arduino Clock Source
+
+The Arduino Nano supplies 5 V power to the circuit and generates a 1 Hz clock signal.
+
+This clock controls when the CRC-16 circuit accepts and shifts input data. Because of this, the user has to time each input with the clock so the intended bit is read correctly by the circuit.
+
+[View the Arduino clock source](arduino/Clock.ino)
+
 ### Logic Overview
 
-The CRC-16 circuit is built around four SN74LS194 4-bit universal shift registers connected to form a 16-bit register. On each clock pulse, the stored data shifts through the register while selected stages are fed back through XOR logic.
+The CRC-16 circuit is built around four SN74LS194 4-bit universal shift registers connected to form a 16-bit register. On each active clock edge, the stored data advances through the registers while selected stages are fed back through XOR logic.
 
-An SN74LS86 XOR gate implements the CRC feedback path, while an SN74LS04 inverter provides the required complementary control signal. The input bit is combined with the feedback path before being shifted into the register, allowing the circuit to update the 16-bit CRC value one bit at a time.
+An SN74LS86 XOR gate implements the CRC feedback path, while the SN74LS04 inverter is used as part of the reset logic for clearing the register state. The input bit is combined with the feedback path before being shifted into the register, allowing the circuit to update the 16-bit CRC value one bit at a time.
 
-The LEDs connected to the register outputs provide a direct visual indication of the current 16-bit state. The Arduino Nano supplies the circuit with 5 V power and provides the clock signal used to advance the shift registers.
+The LEDs connected to the register outputs provide a direct visual indication of the current 16-bit state. The Arduino Nano supplies 5 V power and generates the clock signal. Since the circuit is clock-driven, the user sets the desired input before the active clock edge so that it is correctly captured by the shift registers.
 
 ### Logisim Circuit
 
